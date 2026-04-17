@@ -1,0 +1,109 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>View Products</title>
+
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+        body {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            font-family: 'Segoe UI', sans-serif;
+            min-height: 100vh;
+        }
+
+        .container {
+            padding-top: 40px;
+        }
+
+        h2 {
+            text-align: center;
+            color: white;
+            margin-bottom: 30px;
+        }
+
+        .card {
+            border-radius: 15px;
+            overflow: hidden;
+            transition: 0.3s;
+        }
+
+        .card:hover {
+            transform: scale(1.05);
+        }
+
+        .card img {
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .price {
+            font-weight: bold;
+            color: green;
+        }
+
+        .stock {
+            font-size: 14px;
+            color: gray;
+        }
+
+        .back-btn {
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <!-- Back Button -->
+    <a href="{% url 'adminhome' %}" class="btn btn-light back-btn">⬅ Back</a>
+
+    <h2>All Products</h2>
+
+    <div class="row">
+
+        {% for i in key %}
+        <div class="col-md-4 mb-4">
+
+            <div class="card shadow">
+                <img src="{{ i.image.url }}" class="card-img-top">
+
+                <div class="card-body text-center">
+                    <h5>{{ i.product_name }}</h5>
+
+                    <p class="price">₹ {{ i.price }}</p>
+
+                    <p class="stock">Stock: {{ i.stock }}</p>
+
+                    <!-- Buttons -->
+                    <div class="d-flex justify-content-center gap-2 mt-3">
+
+                        <a href="{% url 'updateproduct' i.id %}" class="btn btn-warning btn-sm">
+                            ✏️ Update
+                        </a>
+
+                        <a href="{% url 'deleteproduct' i.id %}" 
+                           class="btn btn-danger btn-sm"
+                           onclick="return confirm('Are you sure you want to delete this product?');">
+                            🗑️ Delete
+                        </a>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        {% empty %}
+        <h4 class="text-center text-white">No products available</h4>
+        {% endfor %}
+
+    </div>
+
+</div>
+
+</body>
+</html>

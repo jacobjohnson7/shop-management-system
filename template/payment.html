@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Payment</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+        body {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+        }
+
+        .box {
+            width: 420px;
+            margin: 80px auto;
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            text-align: center;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+        }
+
+        .btn-pay {
+            background: #28a745;
+            color: white;
+        }
+
+        .btn-pay:hover {
+            background: #218838;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="box">
+
+    <h3>Total Amount</h3>
+    <h2 class="text-success">₹ {{ total }}</h2>
+
+    <hr>
+
+    <!-- PAYMENT METHOD SELECT -->
+    <div class="mb-3 text-start">
+        <label class="form-label"><b>Select Payment Method</b></label>
+
+        <select id="paymentMethod" class="form-select" onchange="togglePayment()">
+            <option value="card">💳 Card Payment</option>
+            <option value="upi">📱 UPI</option>
+        </select>
+    </div>
+
+    <!-- CARD FORM -->
+    <form method="POST" id="cardForm">
+        {% csrf_token %}
+
+        <input type="text" placeholder="Card Number" class="form-control mb-2" required>
+        <input type="text" placeholder="Expiry Date (MM/YY)" class="form-control mb-2" required>
+        <input type="text" placeholder="CVV" class="form-control mb-3" required>
+
+        <button type="submit" class="btn btn-pay w-100">
+            Pay with Card
+        </button>
+    </form>
+
+    <!-- UPI FORM -->
+    <form method="POST" id="upiForm" style="display:none;">
+        {% csrf_token %}
+
+        <input type="text" placeholder="Enter UPI ID (example@upi)" 
+               class="form-control mb-3" required>
+
+        <button type="submit" class="btn btn-pay w-100">
+            Pay via UPI
+        </button>
+    </form>
+
+</div>
+
+<!-- SCRIPT -->
+<script>
+function togglePayment() {
+    var method = document.getElementById("paymentMethod").value;
+
+    if (method === "card") {
+        document.getElementById("cardForm").style.display = "block";
+        document.getElementById("upiForm").style.display = "none";
+    } else {
+        document.getElementById("cardForm").style.display = "none";
+        document.getElementById("upiForm").style.display = "block";
+    }
+}
+</script>
+
+</body>
+</html>

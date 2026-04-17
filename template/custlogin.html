@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Login Page</title>
+    <style>
+        body {
+            font-family: Arial;
+            background: linear-gradient(135deg, #74ebd5, #ACB6E5);
+        }
+
+        .container {
+            width: 400px;
+            margin: 80px auto;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        table {
+            width: 100%;
+            text-align: left;
+        }
+
+        td {
+            padding: 10px;
+        }
+
+        input {
+            width: 100%;
+            padding: 8px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+
+        .btn {
+            width: 100%;
+            padding: 10px;
+            background: #2193b0;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .btn:hover {
+            background: #176d81;
+        }
+
+        h2 {
+            text-align: center;
+        }
+
+        .signin-link {
+            margin-top: 15px;
+            display: block;
+        }
+
+        .signin-link a {
+            text-decoration: none;
+            color: #2193b0;
+            font-weight: bold;
+        }
+
+        .signin-link a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>Login Form</h2>
+
+    <form method="POST" action="{% url 'custlogin' %}">
+        {% csrf_token %}
+            <tr>
+                <td>Email:</td>
+                <td><input type="email" name="email" required></td>
+            </tr>
+
+            <tr>
+                <td>Password:</td>
+                <td><input type="password" name="password" required></td>
+            </tr>
+
+            <tr>
+                <td colspan="2">
+                    <button type="submit" class="btn">Login</button>
+                </td>
+            </tr>
+        </table>
+    </form>
+
+    <!-- Sign In Link -->
+    <div class="signin-link">
+        Dont have an account? <a href="{% url 'custregister' %}">Sign Up here</a>
+    </div>
+</div>
+
+</body>
+</html>
